@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import { createStore, combineReducers , applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import counterReducer from './store/reducers/counter'
 import resultReducer from './store/reducers/result'
 import { Provider } from 'react-redux'
@@ -25,7 +25,9 @@ const logger = store => {
     }
 }
 
-const store = createStore(rootReducer, applyMiddleware(logger))
+const composeEnchancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose 
+
+const store = createStore(rootReducer,  composeEnchancers(applyMiddleware(logger)))
 // apply middle is an enchancer, can apply multiple middlewares in which they get executed in order 
 
 ReactDOM.render(<Provider store={store}>
