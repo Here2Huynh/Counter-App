@@ -8,6 +8,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import counterReducer from './store/reducers/counter'
 import resultReducer from './store/reducers/result'
 import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
 
 let rootReducer = combineReducers({
     ctr: counterReducer, 
@@ -27,7 +28,7 @@ const logger = store => {
 
 const composeEnchancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose 
 
-const store = createStore(rootReducer,  composeEnchancers(applyMiddleware(logger)))
+const store = createStore(rootReducer,  composeEnchancers(applyMiddleware(logger, thunk)))
 // apply middle is an enchancer, can apply multiple middlewares in which they get executed in order 
 
 ReactDOM.render(<Provider store={store}>
