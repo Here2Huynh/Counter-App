@@ -1,4 +1,6 @@
 import * as actionTypes from '../actions/actionsTypes';
+import { updateObject } from '../utility'
+
 
 const initialState = {
     results: []
@@ -7,10 +9,7 @@ const initialState = {
 const Resultreducer = (state = initialState, action) => {
     switch ( action.type) {
         case actionTypes.STORE_RESULT:
-            return {
-                ...state,
-                results: state.results.concat( {id: new Date().getTime(), value: action.result })
-            }
+            return updateObject(state, { results: state.results.concat( {id: new Date().getTime(), value: action.result }) } )
         case actionTypes.DELETE_RESULT:
             // method 1 of updating array immutably 
             // const id = 2;
@@ -20,13 +19,9 @@ const Resultreducer = (state = initialState, action) => {
             // state.results.splice(id,1)
             // method 2, use filter as it returns a new array s
             // const updatedArr = state.results.filter( (element, index)  => index !== id)
-            console.log('here')
-            const updatedArr = state.results.filter( element  => element.id !== action.resultElementId )
-            return {
-                ...state,
-                results: updatedArr
-            }
-        
+            // console.log('here')
+            const updatedArr = state.results.filter( element  => element.id !== action.resultId )
+            return updateObject(state, { results: updatedArr } )        
     }
 
     return state 
