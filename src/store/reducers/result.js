@@ -6,6 +6,11 @@ const initialState = {
     results: []
 }
 
+const deleteResult = (state, action) => {
+    const updatedArr = state.results.filter( element  => element.id !== action.resultId )
+    return updateObject(state, { results: updatedArr } )
+}
+
 const Resultreducer = (state = initialState, action) => {
     switch ( action.type) {
         case actionTypes.STORE_RESULT:
@@ -20,8 +25,7 @@ const Resultreducer = (state = initialState, action) => {
             // method 2, use filter as it returns a new array s
             // const updatedArr = state.results.filter( (element, index)  => index !== id)
             // console.log('here')
-            const updatedArr = state.results.filter( element  => element.id !== action.resultId )
-            return updateObject(state, { results: updatedArr } )        
+            return deleteResult(state, action)
     }
 
     return state 
